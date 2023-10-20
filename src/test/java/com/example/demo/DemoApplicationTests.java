@@ -3,27 +3,29 @@ package com.example.demo;
 import com.example.demo.student.Student;
 import com.example.demo.student.StudentController;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Assertions;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.*;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.Assert;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
-import org.junit.jupiter.api.Test;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.time.LocalDate;
 import java.time.Month;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
 @ExtendWith(SpringExtension.class)
@@ -51,13 +53,11 @@ class DemoApplicationTests {
 
     @Test
     void getTest() throws Exception{
-        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.get("/sayHello"))
-                .andExpect((MockMvcResultMatchers.status().isOk()))
-                .andExpect(MockMvcResultMatchers.content().string("Hello world!"));
+        ResultActions resultActions = mvc.perform(get("/sayHello"))
+                .andExpect((status().isOk()))
+                .andExpect(content().string("Hello world!"));
     }
 
-    //reference
-    // "{\"name\":\"John Doe\",\"age\":20,\"grade\":\"A\"}";
 
     @Test
     void testStudentPost() throws Exception{

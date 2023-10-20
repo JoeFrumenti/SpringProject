@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 import org.junit.jupiter.api.Test;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -55,10 +56,12 @@ class DemoApplicationTests {
                 .andExpect(MockMvcResultMatchers.content().string("Hello world!"));
     }
 
+    //reference
+    // "{\"name\":\"John Doe\",\"age\":20,\"grade\":\"A\"}";
 
     @Test
     void testStudentPost() throws Exception{
-        String url = "/student";
+        String url = "http://localhost:8080/student";
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -67,6 +70,7 @@ class DemoApplicationTests {
 
         Student gus = new Student("Gus", LocalDate.of(1998, Month.MAY, 30), "gus@hotmail.com");
         ObjectMapper om = new ObjectMapper();
+        om.registerModule(new JavaTimeModule());
         String json = om.writeValueAsString(gus);
 
         HttpEntity<String> requestEntity = new HttpEntity<>(json, headers);

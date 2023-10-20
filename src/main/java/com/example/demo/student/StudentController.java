@@ -26,6 +26,7 @@ public class StudentController {
     @PostMapping("/student")
     public ResponseEntity<?> addStudent(@RequestBody Student student)
     {
+        System.out.println("THIS IS WHERE IT PRINTS");
         return ResponseEntity.ok("ok");
     }
 

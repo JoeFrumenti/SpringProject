@@ -27,16 +27,21 @@ public class AppController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<?> addUser(@RequestBody User user)
+    public ResponseEntity<?> addUser()
     {
-        System.out.println("CALLED POST USER");
         //return ResponseEntity.badRequest().body("bad");
         return ResponseEntity.ok("ok");
     }
 
-    @GetMapping
+    @GetMapping("/")
     public List<User> getUsers() {
         return userService.getUsers();
+    }
+
+    @DeleteMapping("/user/{username}")
+    public ResponseEntity<?> deleteUser(@PathVariable String username)
+    {
+        return ResponseEntity.ok("called delete user " + username);
     }
 
 }

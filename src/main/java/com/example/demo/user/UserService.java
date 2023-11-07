@@ -1,7 +1,9 @@
 package com.example.demo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,7 +22,17 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void addNewUser(User user) {
-        System.out.println("ADD NEW User");
+    public ResponseEntity<?> addNewUser(User user) {
+        User savedUser = userRepository.save(user);
+        return ResponseEntity.ok(savedUser);
+
+    }
+
+    @Transactional
+
+    public ResponseEntity<?> deleteUser(String username)
+    {
+        userRepository.deleteByUsername(username);
+        return ResponseEntity.ok("Deleted " + username);
     }
 }

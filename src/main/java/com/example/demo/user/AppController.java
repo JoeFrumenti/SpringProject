@@ -27,10 +27,9 @@ public class AppController {
     }
 
     @PostMapping("/user")
-    public ResponseEntity<?> addUser()
+    public ResponseEntity<?> addUser(@RequestBody User user)
     {
-        //return ResponseEntity.badRequest().body("bad");
-        return ResponseEntity.ok("ok");
+        return userService.addNewUser(user);
     }
 
     @GetMapping("/")
@@ -41,7 +40,7 @@ public class AppController {
     @DeleteMapping("/user/{username}")
     public ResponseEntity<?> deleteUser(@PathVariable String username)
     {
-        return ResponseEntity.ok("called delete user " + username);
+        return userService.deleteUser(username);
     }
 
 }

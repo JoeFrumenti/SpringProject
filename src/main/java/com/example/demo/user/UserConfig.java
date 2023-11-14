@@ -17,7 +17,6 @@ public class UserConfig
             User mariam = new User(1, "mariam", "iLoveAlex53");
             User alex = new User(2, "alex", "MariamSmellsLikeOldCheese");
 
-            userRepository.saveAll(List.of(mariam, alex));
         };
     }
 }

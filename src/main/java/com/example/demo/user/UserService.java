@@ -40,10 +40,17 @@ public class UserService {
     }
 
     @Transactional
-
     public ResponseEntity<?> deleteUser(String username)
     {
         userRepository.deleteByUsername(username);
         return ResponseEntity.ok("Deleted " + username);
+    }
+
+    public ResponseEntity<?> login(String username, String password)
+    {
+        if(userRepository.findByUsernameAndPassword(username, password) != null)
+            return ResponseEntity.ok("Login Success!");
+        else
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username and Password");
     }
 }

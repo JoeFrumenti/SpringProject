@@ -22,7 +22,8 @@ public class AppController {
     }
 
     @GetMapping("/sayHello")
-    public ResponseEntity<String> greeting(){
+    public ResponseEntity<String> greeting()
+    {
         return ResponseEntity.ok("Hello world!");
     }
 
@@ -43,4 +44,10 @@ public class AppController {
         return userService.deleteUser(username);
     }
 
+    @GetMapping("/user/login")
+    public ResponseEntity<?> login(@RequestParam String param1, @RequestParam String param2)
+    {
+        //return ResponseEntity.ok(user.getUsername() + user.getPassword())
+        return userService.login(param1, param2);
+    }
 }
